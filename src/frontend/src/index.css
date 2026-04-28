@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "General Sans";
+    --font-body: "General Sans";
+    --font-mono: "Geist Mono";
+    --radius: 0.75rem;
+
+    --background: 0.98 0 0;
+    --foreground: 0.2 0.02 280;
+    --card: 0.99 0 0;
+    --card-foreground: 0.2 0.02 280;
+    --popover: 0.99 0 0;
+    --popover-foreground: 0.2 0.02 280;
+
+    --primary: 0.32 0.08 280;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.92 0.04 260;
+    --secondary-foreground: 0.2 0.02 280;
+    --muted: 0.93 0.02 0;
+    --muted-foreground: 0.5 0.02 280;
+
+    --accent: 0.42 0.12 25;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.42 0.12 25;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.9 0.01 280;
+    --input: 0.92 0.01 280;
+    --ring: 0.42 0.12 25;
+
+    --chart-1: 0.75 0.18 130;
+    --chart-2: 0.65 0.15 220;
+    --chart-3: 0.4 0.1 265;
+    --chart-4: 0.6 0.12 40;
+    --chart-5: 0.42 0.12 25;
+
+    --sidebar: 0.32 0.08 280;
+    --sidebar-foreground: 0.98 0 0;
+    --sidebar-primary: 0.42 0.12 25;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.75 0.18 130;
+    --sidebar-accent-foreground: 0.2 0.02 280;
+    --sidebar-border: 0.9 0.01 280;
+    --sidebar-ring: 0.42 0.12 25;
+
+    /* Section background tokens */
+    --workout-bg: oklch(0.18 0.02 20);
+    --hydration-bg: oklch(0.88 0.06 210);
+    --mood-bg: oklch(0.88 0.06 40);
+    --reading-bg: oklch(0.22 0.05 260);
+    --meditation-bg: oklch(0.88 0.08 140);
+  }
+
+  .dark {
+    --background: 0.13 0.01 280;
+    --foreground: 0.95 0.02 280;
+    --card: 0.17 0.01 280;
+    --card-foreground: 0.95 0.02 280;
+    --popover: 0.22 0.02 280;
+    --popover-foreground: 0.95 0.02 280;
+
+    --primary: 0.75 0.12 280;
+    --primary-foreground: 0.13 0.01 280;
+
+    --secondary: 0.22 0.02 280;
+    --secondary-foreground: 0.9 0.02 280;
+    --muted: 0.2 0.01 280;
+    --muted-foreground: 0.6 0.02 280;
+
+    --accent: 0.6 0.15 25;
+    --accent-foreground: 0.13 0.01 280;
+
+    --destructive: 0.6 0.15 25;
+    --destructive-foreground: 0.13 0.01 280;
+
+    --border: 0.25 0.02 280;
+    --input: 0.25 0.02 280;
+    --ring: 0.6 0.15 25;
+
+    --chart-1: 0.85 0.2 130;
+    --chart-2: 0.75 0.18 220;
+    --chart-3: 0.65 0.15 265;
+    --chart-4: 0.7 0.14 40;
+    --chart-5: 0.6 0.15 25;
+
+    --sidebar: 0.17 0.01 280;
+    --sidebar-foreground: 0.95 0.02 280;
+    --sidebar-primary: 0.6 0.15 25;
+    --sidebar-primary-foreground: 0.95 0.02 280;
+    --sidebar-accent: 0.85 0.2 130;
+    --sidebar-accent-foreground: 0.13 0.01 280;
+    --sidebar-border: 0.25 0.02 280;
+    --sidebar-ring: 0.6 0.15 25;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .section-workout {
+    background: linear-gradient(135deg, var(--workout-bg), oklch(0.14 0.03 25));
+  }
+
+  .section-hydration {
+    background: linear-gradient(
+      135deg,
+      var(--hydration-bg),
+      oklch(0.92 0.04 220)
+    );
+  }
+
+  .section-meditation {
+    background: linear-gradient(
+      135deg,
+      var(--meditation-bg),
+      oklch(0.92 0.06 150)
+    );
+  }
+
+  .section-reading {
+    background: linear-gradient(135deg, var(--reading-bg), oklch(0.18 0.06 255));
+  }
+
+  .section-mood {
+    background: linear-gradient(135deg, var(--mood-bg), oklch(0.92 0.05 30));
+  }
+
+  .card-elevated {
+    @apply shadow-md rounded-2xl;
+  }
+
+  .icon-outline {
+    @apply stroke-2 fill-none text-foreground;
+  }
+}

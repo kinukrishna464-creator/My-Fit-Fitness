@@ -1,0 +1,40 @@
+// Version: 1.0.0
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type MeditationSession__605015193 = {durationSeconds : Nat; id : Text};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type ReadingEntry__90259211 = {category : Text; minutes : Nat; pages : Nat};
+type Task__317401435 = {completed : Bool; id : Text; text : Text};
+type WorkoutEntry__954223968 = {category : Text; reps : Nat; sets : Nat};
+actor {
+  stable hydrationStore :
+    {var root : Node__46230540<Text, Nat>; var size : Nat__490723111};
+  stable meditationStore :
+    {
+      var root : Node__46230540<Text, [MeditationSession__605015193]>;
+      var size : Nat__490723111
+    };
+  stable moodStore :
+    {var root : Node__46230540<Text, Nat>; var size : Nat__490723111};
+  stable readingStore :
+    {
+      var root : Node__46230540<Text, [ReadingEntry__90259211]>;
+      var size : Nat__490723111
+    };
+  stable taskStore :
+    {
+      var root : Node__46230540<Text, [Task__317401435]>;
+      var size : Nat__490723111
+    };
+  stable workoutStore :
+    {
+      var root : Node__46230540<Text, [WorkoutEntry__954223968]>;
+      var size : Nat__490723111
+    }
+};

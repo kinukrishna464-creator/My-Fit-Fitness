@@ -1,0 +1,25 @@
+{
+  "overview": "A premium iOS-style daily habit and progress tracking app. Log workouts, water intake, mood, reading, and meditation sessions — all organized by date and persisted across sessions.",
+  "features": [
+    "Home screen showing yesterday's summary across all habit categories",
+    "5-tab bottom navigation: Workout, Hydration, Mood & Tasks, Reading, Meditation",
+    "Workout grid with 8 categories to log reps and sets per day",
+    "Hydration tracker with tap-to-add glasses and circular progress toward daily goal",
+    "Mood selector (emoji scale 1–5) plus freeform task list with add, complete, and delete",
+    "Reading grid with 6 genres to log pages or minutes per session",
+    "Meditation timer with 4 presets (5–20 min), golden ring progress, and auto-save",
+    "All data persisted by date in backend storage"
+  ],
+  "category": "productivity",
+  "tags": [
+    "habits",
+    "tracker",
+    "wellness",
+    "productivity",
+    "ios-style",
+    "meditation",
+    "workout",
+    "reading"
+  ],
+  "last_updated": "2026-04-26T07:48:21.311Z"
+}
