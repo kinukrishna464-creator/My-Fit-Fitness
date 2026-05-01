@@ -7,7 +7,7 @@ var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot
 var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
 var __privateMethod = (obj, member, method) => (__accessCheck(obj, member, "access private method"), method);
 var _client, _currentQuery, _currentQueryInitialState, _currentResult, _currentResultState, _currentResultOptions, _currentThenable, _selectError, _selectFn, _selectResult, _lastQueryWithDefinedData, _staleTimeoutId, _refetchIntervalId, _currentRefetchInterval, _trackedProps, _QueryObserver_instances, executeFetch_fn, updateStaleTimeout_fn, computeRefetchInterval_fn, updateRefetchInterval_fn, updateTimers_fn, clearStaleTimeout_fn, clearRefetchInterval_fn, updateQuery_fn, notify_fn, _a, _client2, _currentResult2, _currentMutation, _mutateOptions, _MutationObserver_instances, updateResult_fn, notify_fn2, _b;
-import { P as ProtocolError, T as TimeoutWaitingForResponseErrorCode, u as utf8ToBytes, E as ExternalError, M as MissingRootKeyErrorCode, C as Certificate, l as lookupResultToBuffer, a as RequestStatusResponseStatus, U as UnknownError, b as RequestStatusDoneNoReplyErrorCode, c as RejectError, d as CertifiedRejectErrorCode, e as UNREACHABLE_ERROR, I as InputError, f as InvalidReadStateRequestErrorCode, g as ReadRequestType, h as Principal, i as IDL, k as MissingCanisterIdErrorCode, H as HttpAgent, m as encode, Q as QueryResponseStatus, n as UncertifiedRejectErrorCode, o as isV3ResponseBody, p as isV2ResponseBody, q as UncertifiedRejectUpdateErrorCode, s as UnexpectedErrorCode, t as decode, S as Subscribable, v as pendingThenable, w as resolveEnabled, x as shallowEqualObjects, y as resolveStaleTime, z as noop, A as environmentManager, B as isValidTimeout, D as timeUntilStale, F as timeoutManager, G as focusManager, J as fetchState, K as replaceData, L as notifyManager, N as hashKey, O as getDefaultState, r as reactExports, V as shouldThrowError, W as useQueryClient, X as useInternetIdentity, Y as createActorWithConfig, Z as Record, _ as Vec, $ as Opt, a0 as Service, a1 as Func, a2 as Text, a3 as Nat, a4 as Bool } from "./index-De6_TF5Z.js";
+import { P as ProtocolError, T as TimeoutWaitingForResponseErrorCode, u as utf8ToBytes, E as ExternalError, M as MissingRootKeyErrorCode, C as Certificate, l as lookupResultToBuffer, a as RequestStatusResponseStatus, U as UnknownError, b as RequestStatusDoneNoReplyErrorCode, c as RejectError, d as CertifiedRejectErrorCode, e as UNREACHABLE_ERROR, I as InputError, f as InvalidReadStateRequestErrorCode, g as ReadRequestType, h as Principal, i as IDL, k as MissingCanisterIdErrorCode, H as HttpAgent, m as encode, Q as QueryResponseStatus, n as UncertifiedRejectErrorCode, o as isV3ResponseBody, p as isV2ResponseBody, q as UncertifiedRejectUpdateErrorCode, s as UnexpectedErrorCode, t as decode, S as Subscribable, v as pendingThenable, w as resolveEnabled, x as shallowEqualObjects, y as resolveStaleTime, z as noop, A as environmentManager, B as isValidTimeout, D as timeUntilStale, F as timeoutManager, G as focusManager, J as fetchState, K as replaceData, L as notifyManager, N as hashKey, O as getDefaultState, r as reactExports, V as shouldThrowError, W as useQueryClient, X as useInternetIdentity, Y as createActorWithConfig, Z as Record, _ as Vec, $ as Opt, a0 as Service, a1 as Func, a2 as Text, a3 as Nat, a4 as Bool, a5 as Float64 } from "./index-D6AznCEg.js";
 const FIVE_MINUTES_IN_MSEC = 5 * 60 * 1e3;
 function defaultStrategy() {
   return chain(conditionalDelay(once(), 1e3), backoff(1e3, 1.2), timeout(FIVE_MINUTES_IN_MSEC));
@@ -1265,14 +1265,15 @@ const DaySummary = Record({
   "date": Text,
   "mood": Opt(Nat),
   "workout": Vec(WorkoutEntry),
-  "hydration": Nat
+  "hydration": Float64
 });
 Service({
+  "addLitres": Func([Text, Float64], [], []),
   "addMeditationSession": Func([Text, Nat], [], []),
   "addTask": Func([Text, Text], [], []),
-  "decrementHydration": Func([Text], [], []),
   "getDailySummary": Func([Text], [DaySummary], ["query"]),
-  "getHydrationByDate": Func([Text], [Nat], ["query"]),
+  "getHydrationByDate": Func([Text], [Float64], ["query"]),
+  "getHydrationTarget": Func([Text], [Float64], ["query"]),
   "getMeditationByDate": Func(
     [Text],
     [Vec(MeditationSession)],
@@ -1286,12 +1287,13 @@ Service({
     [Vec(WorkoutEntry)],
     ["query"]
   ),
-  "incrementHydration": Func([Text], [], []),
+  "removeLitres": Func([Text, Float64], [], []),
   "removeMeditationSession": Func([Text, Text], [], []),
   "removeReadingEntry": Func([Text, Text], [], []),
   "removeTask": Func([Text, Text], [], []),
   "removeWorkoutEntry": Func([Text, Text], [], []),
-  "setHydration": Func([Text, Nat], [], []),
+  "setHydration": Func([Text, Float64], [], []),
+  "setHydrationTarget": Func([Text, Float64], [], []),
   "setMood": Func([Text, Nat], [], []),
   "toggleTask": Func([Text, Text], [], []),
   "upsertReadingEntry": Func(
@@ -1332,14 +1334,15 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "date": IDL2.Text,
     "mood": IDL2.Opt(IDL2.Nat),
     "workout": IDL2.Vec(WorkoutEntry2),
-    "hydration": IDL2.Nat
+    "hydration": IDL2.Float64
   });
   return IDL2.Service({
+    "addLitres": IDL2.Func([IDL2.Text, IDL2.Float64], [], []),
     "addMeditationSession": IDL2.Func([IDL2.Text, IDL2.Nat], [], []),
     "addTask": IDL2.Func([IDL2.Text, IDL2.Text], [], []),
-    "decrementHydration": IDL2.Func([IDL2.Text], [], []),
     "getDailySummary": IDL2.Func([IDL2.Text], [DaySummary2], ["query"]),
-    "getHydrationByDate": IDL2.Func([IDL2.Text], [IDL2.Nat], ["query"]),
+    "getHydrationByDate": IDL2.Func([IDL2.Text], [IDL2.Float64], ["query"]),
+    "getHydrationTarget": IDL2.Func([IDL2.Text], [IDL2.Float64], ["query"]),
     "getMeditationByDate": IDL2.Func(
       [IDL2.Text],
       [IDL2.Vec(MeditationSession2)],
@@ -1357,12 +1360,13 @@ const idlFactory = ({ IDL: IDL2 }) => {
       [IDL2.Vec(WorkoutEntry2)],
       ["query"]
     ),
-    "incrementHydration": IDL2.Func([IDL2.Text], [], []),
+    "removeLitres": IDL2.Func([IDL2.Text, IDL2.Float64], [], []),
     "removeMeditationSession": IDL2.Func([IDL2.Text, IDL2.Text], [], []),
     "removeReadingEntry": IDL2.Func([IDL2.Text, IDL2.Text], [], []),
     "removeTask": IDL2.Func([IDL2.Text, IDL2.Text], [], []),
     "removeWorkoutEntry": IDL2.Func([IDL2.Text, IDL2.Text], [], []),
-    "setHydration": IDL2.Func([IDL2.Text, IDL2.Nat], [], []),
+    "setHydration": IDL2.Func([IDL2.Text, IDL2.Float64], [], []),
+    "setHydrationTarget": IDL2.Func([IDL2.Text, IDL2.Float64], [], []),
     "setMood": IDL2.Func([IDL2.Text, IDL2.Nat], [], []),
     "toggleTask": IDL2.Func([IDL2.Text, IDL2.Text], [], []),
     "upsertReadingEntry": IDL2.Func(
@@ -1386,6 +1390,20 @@ class Backend {
     this._uploadFile = _uploadFile;
     this._downloadFile = _downloadFile;
     this.processError = processError;
+  }
+  async addLitres(arg0, arg1) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.addLitres(arg0, arg1);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.addLitres(arg0, arg1);
+      return result;
+    }
   }
   async addMeditationSession(arg0, arg1) {
     if (this.processError) {
@@ -1415,20 +1433,6 @@ class Backend {
       return result;
     }
   }
-  async decrementHydration(arg0) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.decrementHydration(arg0);
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.decrementHydration(arg0);
-      return result;
-    }
-  }
   async getDailySummary(arg0) {
     if (this.processError) {
       try {
@@ -1454,6 +1458,20 @@ class Backend {
       }
     } else {
       const result = await this.actor.getHydrationByDate(arg0);
+      return result;
+    }
+  }
+  async getHydrationTarget(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getHydrationTarget(arg0);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getHydrationTarget(arg0);
       return result;
     }
   }
@@ -1527,17 +1545,17 @@ class Backend {
       return result;
     }
   }
-  async incrementHydration(arg0) {
+  async removeLitres(arg0, arg1) {
     if (this.processError) {
       try {
-        const result = await this.actor.incrementHydration(arg0);
+        const result = await this.actor.removeLitres(arg0, arg1);
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.incrementHydration(arg0);
+      const result = await this.actor.removeLitres(arg0, arg1);
       return result;
     }
   }
@@ -1608,6 +1626,20 @@ class Backend {
       }
     } else {
       const result = await this.actor.setHydration(arg0, arg1);
+      return result;
+    }
+  }
+  async setHydrationTarget(arg0, arg1) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.setHydrationTarget(arg0, arg1);
+        return result;
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.setHydrationTarget(arg0, arg1);
       return result;
     }
   }
@@ -1785,37 +1817,65 @@ function useSaveWorkout(date = todayKey()) {
     }
   });
 }
+const CL_PER_LITRE = 100;
+const HYDRATION_TARGET_KEY = (date) => `hydration_target_${date}`;
+const DEFAULT_TARGET_LITRES = 2;
 function useHydration(date = todayKey()) {
   const { actor, isFetching } = useActor(createActor);
   return useQuery({
     queryKey: keys.hydration(date),
     queryFn: async () => {
-      if (!actor) return 0n;
-      return actor.getHydrationByDate(date);
+      if (!actor) return 0;
+      const cl = await actor.getHydrationByDate(date);
+      return cl / CL_PER_LITRE;
     },
     enabled: !!actor && !isFetching
   });
 }
-function useIncrementHydration(date = todayKey()) {
+function useAddLitres(date = todayKey()) {
   const { actor } = useActor(createActor);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (litres) => {
       if (!actor) throw new Error("Actor not ready");
-      await actor.incrementHydration(date);
+      const current = await actor.getHydrationByDate(date);
+      const addCl = Math.round(litres * CL_PER_LITRE);
+      await actor.setHydration(date, current + addCl);
     },
     onSuccess: () => void qc.invalidateQueries({ queryKey: keys.hydration(date) })
   });
 }
-function useDecrementHydration(date = todayKey()) {
+function useRemoveLitres(date = todayKey()) {
   const { actor } = useActor(createActor);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (litres) => {
       if (!actor) throw new Error("Actor not ready");
-      await actor.decrementHydration(date);
+      const current = await actor.getHydrationByDate(date);
+      const removeCl = Math.round(litres * CL_PER_LITRE);
+      const next = current > removeCl ? current - removeCl : 0;
+      await actor.setHydration(date, next);
     },
     onSuccess: () => void qc.invalidateQueries({ queryKey: keys.hydration(date) })
+  });
+}
+function useHydrationTarget(date = todayKey()) {
+  return useQuery({
+    queryKey: ["hydrationTarget", date],
+    queryFn: () => {
+      const stored = localStorage.getItem(HYDRATION_TARGET_KEY(date));
+      return stored ? Number.parseFloat(stored) : DEFAULT_TARGET_LITRES;
+    },
+    staleTime: Number.POSITIVE_INFINITY
+  });
+}
+function useSetHydrationTarget(date = todayKey()) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (targetLitres) => {
+      localStorage.setItem(HYDRATION_TARGET_KEY(date), String(targetLitres));
+    },
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ["hydrationTarget", date] })
   });
 }
 function useMood(date = todayKey()) {
@@ -1948,22 +2008,24 @@ export {
   useWorkoutLog as a,
   useSaveWorkout as b,
   useHydration as c,
-  useIncrementHydration as d,
-  useDecrementHydration as e,
+  useHydrationTarget as d,
+  useAddLitres as e,
   formatDisplayDate as f,
-  useMood as g,
-  useSaveMood as h,
-  useTasks as i,
-  useAddTask as j,
-  useToggleTask as k,
-  useDeleteTask as l,
-  useReadingLog as m,
-  useSaveReading as n,
-  useMeditationLog as o,
-  useAddMeditation as p,
-  useDeleteMeditation as q,
-  formatDuration as r,
+  useRemoveLitres as g,
+  useSetHydrationTarget as h,
+  useMood as i,
+  useSaveMood as j,
+  useTasks as k,
+  useAddTask as l,
+  useToggleTask as m,
+  useDeleteTask as n,
+  useReadingLog as o,
+  useSaveReading as p,
+  useMeditationLog as q,
+  useAddMeditation as r,
+  useDeleteMeditation as s,
   todayKey as t,
   usePreviousDaySummary as u,
+  formatDuration as v,
   yesterdayKey as y
 };

@@ -17,7 +17,7 @@ export interface DaySummary {
   'date' : string,
   'mood' : [] | [bigint],
   'workout' : Array<WorkoutEntry>,
-  'hydration' : bigint,
+  'hydration' : number,
 }
 export interface MeditationSession { 'id' : string, 'durationSeconds' : bigint }
 export interface ReadingEntry {
@@ -32,22 +32,24 @@ export interface WorkoutEntry {
   'category' : string,
 }
 export interface _SERVICE {
+  'addLitres' : ActorMethod<[string, number], undefined>,
   'addMeditationSession' : ActorMethod<[string, bigint], undefined>,
   'addTask' : ActorMethod<[string, string], undefined>,
-  'decrementHydration' : ActorMethod<[string], undefined>,
   'getDailySummary' : ActorMethod<[string], DaySummary>,
-  'getHydrationByDate' : ActorMethod<[string], bigint>,
+  'getHydrationByDate' : ActorMethod<[string], number>,
+  'getHydrationTarget' : ActorMethod<[string], number>,
   'getMeditationByDate' : ActorMethod<[string], Array<MeditationSession>>,
   'getMoodByDate' : ActorMethod<[string], [] | [bigint]>,
   'getReadingByDate' : ActorMethod<[string], Array<ReadingEntry>>,
   'getTasksByDate' : ActorMethod<[string], Array<Task>>,
   'getWorkoutsByDate' : ActorMethod<[string], Array<WorkoutEntry>>,
-  'incrementHydration' : ActorMethod<[string], undefined>,
+  'removeLitres' : ActorMethod<[string, number], undefined>,
   'removeMeditationSession' : ActorMethod<[string, string], undefined>,
   'removeReadingEntry' : ActorMethod<[string, string], undefined>,
   'removeTask' : ActorMethod<[string, string], undefined>,
   'removeWorkoutEntry' : ActorMethod<[string, string], undefined>,
-  'setHydration' : ActorMethod<[string, bigint], undefined>,
+  'setHydration' : ActorMethod<[string, number], undefined>,
+  'setHydrationTarget' : ActorMethod<[string, number], undefined>,
   'setMood' : ActorMethod<[string, bigint], undefined>,
   'toggleTask' : ActorMethod<[string, string], undefined>,
   'upsertReadingEntry' : ActorMethod<

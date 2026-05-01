@@ -1,23 +1,36 @@
 import HydrationLib "../lib/hydration";
 
-mixin (hydrationStore : HydrationLib.HydrationMap) {
-  /// Get glass count for a specific date
-  public query func getHydrationByDate(date : Text) : async Nat {
+mixin (
+  hydrationStore : HydrationLib.HydrationMap,
+  hydrationTargetStore : HydrationLib.TargetMap,
+) {
+  /// Get litres consumed for a specific date
+  public query func getHydrationByDate(date : Text) : async Float {
     HydrationLib.getByDate(hydrationStore, date);
   };
 
-  /// Set glass count for a specific date (unbounded)
-  public func setHydration(date : Text, glasses : Nat) : async () {
-    HydrationLib.setGlasses(hydrationStore, date, glasses);
+  /// Add litres to the current total for a specific date
+  public func addLitres(date : Text, amount : Float) : async () {
+    HydrationLib.addLitres(hydrationStore, date, amount);
   };
 
-  /// Increment glass count by 1 for a specific date
-  public func incrementHydration(date : Text) : async () {
-    HydrationLib.incrementGlasses(hydrationStore, date);
+  /// Remove litres from the current total for a specific date (min 0.0)
+  public func removeLitres(date : Text, amount : Float) : async () {
+    HydrationLib.removeLitres(hydrationStore, date, amount);
   };
 
-  /// Decrement glass count by 1 for a specific date
-  public func decrementHydration(date : Text) : async () {
-    HydrationLib.decrementGlasses(hydrationStore, date);
+  /// Set exact litres consumed for a specific date
+  public func setHydration(date : Text, amount : Float) : async () {
+    HydrationLib.setLitres(hydrationStore, date, amount);
+  };
+
+  /// Get the daily hydration target in litres for a specific date
+  public query func getHydrationTarget(date : Text) : async Float {
+    HydrationLib.getTarget(hydrationTargetStore, date);
+  };
+
+  /// Set the daily hydration target in litres for a specific date
+  public func setHydrationTarget(date : Text, target : Float) : async () {
+    HydrationLib.setTarget(hydrationTargetStore, date, target);
   };
 };

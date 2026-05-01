@@ -24,7 +24,7 @@ export interface DaySummary {
     date: string;
     mood?: bigint;
     workout: Array<WorkoutEntry>;
-    hydration: bigint;
+    hydration: number;
 }
 export interface WorkoutEntry {
     reps: bigint;
@@ -36,22 +36,24 @@ export interface MeditationSession {
     durationSeconds: bigint;
 }
 export interface backendInterface {
+    addLitres(date: string, amount: number): Promise<void>;
     addMeditationSession(date: string, durationSeconds: bigint): Promise<void>;
     addTask(date: string, text: string): Promise<void>;
-    decrementHydration(date: string): Promise<void>;
     getDailySummary(date: string): Promise<DaySummary>;
-    getHydrationByDate(date: string): Promise<bigint>;
+    getHydrationByDate(date: string): Promise<number>;
+    getHydrationTarget(date: string): Promise<number>;
     getMeditationByDate(date: string): Promise<Array<MeditationSession>>;
     getMoodByDate(date: string): Promise<bigint | null>;
     getReadingByDate(date: string): Promise<Array<ReadingEntry>>;
     getTasksByDate(date: string): Promise<Array<Task>>;
     getWorkoutsByDate(date: string): Promise<Array<WorkoutEntry>>;
-    incrementHydration(date: string): Promise<void>;
+    removeLitres(date: string, amount: number): Promise<void>;
     removeMeditationSession(date: string, sessionId: string): Promise<void>;
     removeReadingEntry(date: string, category: string): Promise<void>;
     removeTask(date: string, taskId: string): Promise<void>;
     removeWorkoutEntry(date: string, category: string): Promise<void>;
-    setHydration(date: string, glasses: bigint): Promise<void>;
+    setHydration(date: string, amount: number): Promise<void>;
+    setHydrationTarget(date: string, target: number): Promise<void>;
     setMood(date: string, score: bigint): Promise<void>;
     toggleTask(date: string, taskId: string): Promise<void>;
     upsertReadingEntry(date: string, category: string, pages: bigint, minutes: bigint): Promise<void>;

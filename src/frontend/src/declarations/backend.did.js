@@ -34,15 +34,16 @@ export const DaySummary = IDL.Record({
   'date' : IDL.Text,
   'mood' : IDL.Opt(IDL.Nat),
   'workout' : IDL.Vec(WorkoutEntry),
-  'hydration' : IDL.Nat,
+  'hydration' : IDL.Float64,
 });
 
 export const idlService = IDL.Service({
+  'addLitres' : IDL.Func([IDL.Text, IDL.Float64], [], []),
   'addMeditationSession' : IDL.Func([IDL.Text, IDL.Nat], [], []),
   'addTask' : IDL.Func([IDL.Text, IDL.Text], [], []),
-  'decrementHydration' : IDL.Func([IDL.Text], [], []),
   'getDailySummary' : IDL.Func([IDL.Text], [DaySummary], ['query']),
-  'getHydrationByDate' : IDL.Func([IDL.Text], [IDL.Nat], ['query']),
+  'getHydrationByDate' : IDL.Func([IDL.Text], [IDL.Float64], ['query']),
+  'getHydrationTarget' : IDL.Func([IDL.Text], [IDL.Float64], ['query']),
   'getMeditationByDate' : IDL.Func(
       [IDL.Text],
       [IDL.Vec(MeditationSession)],
@@ -56,12 +57,13 @@ export const idlService = IDL.Service({
       [IDL.Vec(WorkoutEntry)],
       ['query'],
     ),
-  'incrementHydration' : IDL.Func([IDL.Text], [], []),
+  'removeLitres' : IDL.Func([IDL.Text, IDL.Float64], [], []),
   'removeMeditationSession' : IDL.Func([IDL.Text, IDL.Text], [], []),
   'removeReadingEntry' : IDL.Func([IDL.Text, IDL.Text], [], []),
   'removeTask' : IDL.Func([IDL.Text, IDL.Text], [], []),
   'removeWorkoutEntry' : IDL.Func([IDL.Text, IDL.Text], [], []),
-  'setHydration' : IDL.Func([IDL.Text, IDL.Nat], [], []),
+  'setHydration' : IDL.Func([IDL.Text, IDL.Float64], [], []),
+  'setHydrationTarget' : IDL.Func([IDL.Text, IDL.Float64], [], []),
   'setMood' : IDL.Func([IDL.Text, IDL.Nat], [], []),
   'toggleTask' : IDL.Func([IDL.Text, IDL.Text], [], []),
   'upsertReadingEntry' : IDL.Func(
@@ -105,15 +107,16 @@ export const idlFactory = ({ IDL }) => {
     'date' : IDL.Text,
     'mood' : IDL.Opt(IDL.Nat),
     'workout' : IDL.Vec(WorkoutEntry),
-    'hydration' : IDL.Nat,
+    'hydration' : IDL.Float64,
   });
   
   return IDL.Service({
+    'addLitres' : IDL.Func([IDL.Text, IDL.Float64], [], []),
     'addMeditationSession' : IDL.Func([IDL.Text, IDL.Nat], [], []),
     'addTask' : IDL.Func([IDL.Text, IDL.Text], [], []),
-    'decrementHydration' : IDL.Func([IDL.Text], [], []),
     'getDailySummary' : IDL.Func([IDL.Text], [DaySummary], ['query']),
-    'getHydrationByDate' : IDL.Func([IDL.Text], [IDL.Nat], ['query']),
+    'getHydrationByDate' : IDL.Func([IDL.Text], [IDL.Float64], ['query']),
+    'getHydrationTarget' : IDL.Func([IDL.Text], [IDL.Float64], ['query']),
     'getMeditationByDate' : IDL.Func(
         [IDL.Text],
         [IDL.Vec(MeditationSession)],
@@ -131,12 +134,13 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(WorkoutEntry)],
         ['query'],
       ),
-    'incrementHydration' : IDL.Func([IDL.Text], [], []),
+    'removeLitres' : IDL.Func([IDL.Text, IDL.Float64], [], []),
     'removeMeditationSession' : IDL.Func([IDL.Text, IDL.Text], [], []),
     'removeReadingEntry' : IDL.Func([IDL.Text, IDL.Text], [], []),
     'removeTask' : IDL.Func([IDL.Text, IDL.Text], [], []),
     'removeWorkoutEntry' : IDL.Func([IDL.Text, IDL.Text], [], []),
-    'setHydration' : IDL.Func([IDL.Text, IDL.Nat], [], []),
+    'setHydration' : IDL.Func([IDL.Text, IDL.Float64], [], []),
+    'setHydrationTarget' : IDL.Func([IDL.Text, IDL.Float64], [], []),
     'setMood' : IDL.Func([IDL.Text, IDL.Nat], [], []),
     'toggleTask' : IDL.Func([IDL.Text, IDL.Text], [], []),
     'upsertReadingEntry' : IDL.Func(

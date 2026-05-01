@@ -1,6 +1,7 @@
 module {
   public type HydrationLog = {
     date : Text;
-    glasses : Nat; // 0-12
+    litres : Float; // litres consumed (e.g. 0.25 per cup)
+    targetLitres : Float; // daily target in litres (default 2.0)
   };
 };

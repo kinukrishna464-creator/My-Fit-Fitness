@@ -34,7 +34,7 @@ export function useDaySummary(date: string = todayKey()) {
         return {
           date,
           workout: [],
-          hydration: 0n,
+          hydration: 0,
           tasks: [],
           reading: [],
           meditation: [],
@@ -112,55 +112,99 @@ export function useDeleteWorkout(date: string = todayKey()) {
 }
 
 // ─── Hydration Hooks ─────────────────────────────────────────────────────────
+//
+// Backend stores hydration as a Float (number in TS), representing centilitres (cL).
+// So 1.0 L = 100 cL, 0.25 L = 25 cL.
+//
+// Daily target is stored in localStorage (no backend method available).
+//
+const CL_PER_LITRE = 100;
+const HYDRATION_TARGET_KEY = (date: string) => `hydration_target_${date}`;
+const DEFAULT_TARGET_LITRES = 2.0;
 
+/** Read centilitres from backend → convert to litres */
 export function useHydration(date: string = todayKey()) {
   const { actor, isFetching } = useActor(createActor);
-  return useQuery<bigint>({
+  return useQuery<number>({
     queryKey: keys.hydration(date),
     queryFn: async () => {
-      if (!actor) return 0n;
-      return actor.getHydrationByDate(date) as Promise<bigint>;
+      if (!actor) return 0;
+      const cl = await actor.getHydrationByDate(date);
+      return cl / CL_PER_LITRE;
     },
     enabled: !!actor && !isFetching,
   });
 }
 
-export function useIncrementHydration(date: string = todayKey()) {
+/** Add litres (default 0.25 L) → convert to cL and call setHydration */
+export function useAddLitres(date: string = todayKey()) {
   const { actor } = useActor(createActor);
   const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async () => {
+  return useMutation<void, Error, number>({
+    mutationFn: async (litres: number) => {
       if (!actor) throw new Error("Actor not ready");
-      await actor.incrementHydration(date);
+      const current = await actor.getHydrationByDate(date);
+      const addCl = Math.round(litres * CL_PER_LITRE);
+      await actor.setHydration(date, current + addCl);
     },
     onSuccess: () =>
       void qc.invalidateQueries({ queryKey: keys.hydration(date) }),
   });
 }
 
-export function useDecrementHydration(date: string = todayKey()) {
+/** Remove litres (default 0.25 L) → clamped at 0 */
+export function useRemoveLitres(date: string = todayKey()) {
   const { actor } = useActor(createActor);
   const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async () => {
+  return useMutation<void, Error, number>({
+    mutationFn: async (litres: number) => {
       if (!actor) throw new Error("Actor not ready");
-      await actor.decrementHydration(date);
+      const current = await actor.getHydrationByDate(date);
+      const removeCl = Math.round(litres * CL_PER_LITRE);
+      const next = current > removeCl ? current - removeCl : 0;
+      await actor.setHydration(date, next);
     },
     onSuccess: () =>
       void qc.invalidateQueries({ queryKey: keys.hydration(date) }),
   });
 }
 
+/** Set hydration to an exact litre value */
 export function useSetHydration(date: string = todayKey()) {
   const { actor } = useActor(createActor);
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (glasses: bigint) => {
+    mutationFn: async (litres: number) => {
       if (!actor) throw new Error("Actor not ready");
-      await actor.setHydration(date, glasses);
+      const cl = Math.round(litres * CL_PER_LITRE);
+      await actor.setHydration(date, cl);
     },
     onSuccess: () =>
       void qc.invalidateQueries({ queryKey: keys.hydration(date) }),
+  });
+}
+
+/** Read daily target from localStorage */
+export function useHydrationTarget(date: string = todayKey()) {
+  return useQuery<number>({
+    queryKey: ["hydrationTarget", date],
+    queryFn: () => {
+      const stored = localStorage.getItem(HYDRATION_TARGET_KEY(date));
+      return stored ? Number.parseFloat(stored) : DEFAULT_TARGET_LITRES;
+    },
+    staleTime: Number.POSITIVE_INFINITY,
+  });
+}
+
+/** Save daily target to localStorage */
+export function useSetHydrationTarget(date: string = todayKey()) {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async (targetLitres: number) => {
+      localStorage.setItem(HYDRATION_TARGET_KEY(date), String(targetLitres));
+    },
+    onSuccess: () =>
+      void qc.invalidateQueries({ queryKey: ["hydrationTarget", date] }),
   });
 }
 

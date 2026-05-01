@@ -6,8 +6,10 @@ export interface WorkoutEntry {
 
 export interface HydrationLog {
   date: string;
-  glasses: bigint;
-  targetGlasses: number;
+  /** Litres consumed (stored internally as centilitres bigint, converted on read) */
+  litres: number;
+  /** Daily target in litres (default 2.0) */
+  targetLitres: number;
 }
 
 export interface MoodLog {
@@ -36,7 +38,7 @@ export interface MeditationSession {
 export interface DaySummary {
   date: string;
   workout: WorkoutEntry[];
-  hydration: bigint;
+  hydration: number;
   mood?: bigint;
   tasks: Task[];
   reading: ReadingEntry[];

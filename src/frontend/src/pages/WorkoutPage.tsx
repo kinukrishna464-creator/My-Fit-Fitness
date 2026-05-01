@@ -88,40 +88,42 @@ function LogModal({
 }: LogModalProps) {
   const [sets, setSets] = useState(existing ? Number(existing.sets) : 3);
   const [reps, setReps] = useState(existing ? Number(existing.reps) : 10);
-  const overlayRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  // Close on backdrop click
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    if (e.target === overlayRef.current) onClose();
-  };
-
-  // Close on Escape
+  // Open as modal and close on Escape (native dialog handles Escape automatically)
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
+    const el = dialogRef.current;
+    if (!el) return;
+    if (!el.open) el.showModal();
+    const handleClose = () => onClose();
+    el.addEventListener("close", handleClose);
+    return () => el.removeEventListener("close", handleClose);
   }, [onClose]);
+
+  // Close on backdrop click (click outside the inner panel)
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    const rect = dialogRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const { clientX: x, clientY: y } = e;
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      dialogRef.current?.close();
+    }
+  };
 
   return (
     <dialog
-      ref={overlayRef}
+      ref={dialogRef}
       data-ocid="workout.dialog"
-      open
-      className="fixed inset-0 z-50 flex items-end justify-center sm:items-center m-0 p-0 w-full h-full max-w-none max-h-none border-0 bg-transparent"
-      style={{ background: "rgba(0,0,0,0.72)" }}
       aria-labelledby="workout-modal-title"
       onClick={handleBackdropClick}
       onKeyDown={(e) => {
-        if (e.key === "Escape") onClose();
+        if (e.key === "Escape") dialogRef.current?.close();
       }}
     >
       <div
         className="bg-card rounded-t-3xl sm:rounded-3xl w-full max-w-sm mx-0 sm:mx-4 p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
-        role="presentation"
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -357,6 +359,33 @@ export default function WorkoutPage() {
 
       {/* Scoped styles */}
       <style>{`
+        /* ── dialog overlay reset ───────────────────────── */
+        dialog[data-ocid="workout.dialog"] {
+          all: unset;
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          background: rgba(0,0,0,0.72);
+          width: 100vw;
+          max-width: 100vw;
+          height: 100dvh;
+          max-height: 100dvh;
+          padding: 0;
+          border: none;
+          margin: 0;
+          overflow: visible;
+        }
+        @media (min-width: 640px) {
+          dialog[data-ocid="workout.dialog"] {
+            align-items: center;
+          }
+        }
+        dialog[data-ocid="workout.dialog"]::backdrop {
+          display: none;
+        }
         .workout-category-card {
           position: relative;
           border-radius: 1rem;

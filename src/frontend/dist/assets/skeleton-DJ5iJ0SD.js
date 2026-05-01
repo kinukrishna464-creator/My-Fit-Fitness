@@ -1,4 +1,4 @@
-import { j as jsxRuntimeExports } from "./index-De6_TF5Z.js";
+import { j as jsxRuntimeExports } from "./index-D6AznCEg.js";
 import { c as cn } from "./utils-2v2HxlWs.js";
 function Skeleton({ className, ...props }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(

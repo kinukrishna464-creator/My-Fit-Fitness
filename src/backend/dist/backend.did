@@ -24,7 +24,7 @@ type MeditationSession =
 type DaySummary = 
  record {
    date: text;
-   hydration: nat;
+   hydration: float64;
    meditation: vec MeditationSession;
    mood: opt nat;
    reading: vec ReadingEntry;
@@ -32,22 +32,24 @@ type DaySummary =
    workout: vec WorkoutEntry;
  };
 service : {
+  addLitres: (date: text, amount: float64) -> ();
   addMeditationSession: (date: text, durationSeconds: nat) -> ();
   addTask: (date: text, "text": text) -> ();
-  decrementHydration: (date: text) -> ();
   getDailySummary: (date: text) -> (DaySummary) query;
-  getHydrationByDate: (date: text) -> (nat) query;
+  getHydrationByDate: (date: text) -> (float64) query;
+  getHydrationTarget: (date: text) -> (float64) query;
   getMeditationByDate: (date: text) -> (vec MeditationSession) query;
   getMoodByDate: (date: text) -> (opt nat) query;
   getReadingByDate: (date: text) -> (vec ReadingEntry) query;
   getTasksByDate: (date: text) -> (vec Task) query;
   getWorkoutsByDate: (date: text) -> (vec WorkoutEntry) query;
-  incrementHydration: (date: text) -> ();
+  removeLitres: (date: text, amount: float64) -> ();
   removeMeditationSession: (date: text, sessionId: text) -> ();
   removeReadingEntry: (date: text, category: text) -> ();
   removeTask: (date: text, taskId: text) -> ();
   removeWorkoutEntry: (date: text, category: text) -> ();
-  setHydration: (date: text, glasses: nat) -> ();
+  setHydration: (date: text, amount: float64) -> ();
+  setHydrationTarget: (date: text, target: float64) -> ();
   setMood: (date: text, score: nat) -> ();
   toggleTask: (date: text, taskId: text) -> ();
   upsertReadingEntry: (date: text, category: text, pages: nat, minutes:

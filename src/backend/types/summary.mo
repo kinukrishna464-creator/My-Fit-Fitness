@@ -8,7 +8,7 @@ module {
   public type DaySummary = {
     date : Text;
     workout : [WorkoutTypes.WorkoutEntry];
-    hydration : Nat; // glass count
+    hydration : Float; // litres consumed
     mood : ?Nat; // score 1-5, null if not set
     tasks : [MoodTypes.Task];
     reading : [ReadingTypes.ReadingEntry];

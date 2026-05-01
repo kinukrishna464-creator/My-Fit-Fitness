@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/HomePage-BNCzhCcf.js","assets/skeleton-DCxdagqc.js","assets/utils-2v2HxlWs.js","assets/useHabitBackend-hZtoiFj0.js","assets/WorkoutPage-CDGg6INx.js","assets/button-DScs97lM.js","assets/createLucideIcon-CAN4Aort.js","assets/HydrationPage-GCCvVmq0.js","assets/MoodPage-m8XT3Ex6.js","assets/ReadingPage-G_dABj85.js","assets/MeditationPage-CAmkl3QC.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/HomePage--p3Kg3aG.js","assets/skeleton-DJ5iJ0SD.js","assets/utils-2v2HxlWs.js","assets/useHabitBackend-CFoa_XeP.js","assets/WorkoutPage-6_uhwhYJ.js","assets/button-BZxg97WT.js","assets/createLucideIcon-DH0K0O4P.js","assets/target-uGuI49e1.js","assets/HydrationPage-DcrzZSpW.js","assets/MoodPage-BepQeU7b.js","assets/ReadingPage-CLWp1wSd.js","assets/MeditationPage-BgufgLew.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -26588,12 +26588,12 @@ function Layout({ activeTab, onTabChange, children }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(BottomNav, { activeTab, onTabChange })
   ] });
 }
-const HomePage = reactExports.lazy(() => __vitePreload(() => import("./HomePage-BNCzhCcf.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
-const WorkoutPage = reactExports.lazy(() => __vitePreload(() => import("./WorkoutPage-CDGg6INx.js"), true ? __vite__mapDeps([4,5,2,1,3,6]) : void 0));
-const HydrationPage = reactExports.lazy(() => __vitePreload(() => import("./HydrationPage-GCCvVmq0.js"), true ? __vite__mapDeps([7,3,6]) : void 0));
-const MoodPage = reactExports.lazy(() => __vitePreload(() => import("./MoodPage-m8XT3Ex6.js"), true ? __vite__mapDeps([8,3,6]) : void 0));
-const ReadingPage = reactExports.lazy(() => __vitePreload(() => import("./ReadingPage-G_dABj85.js"), true ? __vite__mapDeps([9,5,2,3,6]) : void 0));
-const MeditationPage = reactExports.lazy(() => __vitePreload(() => import("./MeditationPage-CAmkl3QC.js"), true ? __vite__mapDeps([10,5,2,1,3]) : void 0));
+const HomePage = reactExports.lazy(() => __vitePreload(() => import("./HomePage--p3Kg3aG.js"), true ? __vite__mapDeps([0,1,2,3]) : void 0));
+const WorkoutPage = reactExports.lazy(() => __vitePreload(() => import("./WorkoutPage-6_uhwhYJ.js"), true ? __vite__mapDeps([4,5,2,1,3,6,7]) : void 0));
+const HydrationPage = reactExports.lazy(() => __vitePreload(() => import("./HydrationPage-DcrzZSpW.js"), true ? __vite__mapDeps([8,3,7,6]) : void 0));
+const MoodPage = reactExports.lazy(() => __vitePreload(() => import("./MoodPage-BepQeU7b.js"), true ? __vite__mapDeps([9,3,6]) : void 0));
+const ReadingPage = reactExports.lazy(() => __vitePreload(() => import("./ReadingPage-CLWp1wSd.js"), true ? __vite__mapDeps([10,5,2,3,6]) : void 0));
+const MeditationPage = reactExports.lazy(() => __vitePreload(() => import("./MeditationPage-BgufgLew.js"), true ? __vite__mapDeps([11,5,2,1,3]) : void 0));
 function PageFallback() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center min-h-64", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-8 h-8 rounded-full border-2 border-border border-t-primary animate-spin" }) });
 }
@@ -26650,6 +26650,7 @@ export {
   Text as a2,
   Nat as a3,
   Bool as a4,
+  Float64 as a5,
   RequestStatusDoneNoReplyErrorCode as b,
   RejectError as c,
   CertifiedRejectErrorCode as d,

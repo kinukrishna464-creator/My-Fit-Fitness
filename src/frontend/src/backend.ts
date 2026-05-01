@@ -106,7 +106,7 @@ export interface DaySummary {
     date: string;
     mood?: bigint;
     workout: Array<WorkoutEntry>;
-    hydration: bigint;
+    hydration: number;
 }
 export interface WorkoutEntry {
     reps: bigint;
@@ -118,22 +118,24 @@ export interface MeditationSession {
     durationSeconds: bigint;
 }
 export interface backendInterface {
+    addLitres(date: string, amount: number): Promise<void>;
     addMeditationSession(date: string, durationSeconds: bigint): Promise<void>;
     addTask(date: string, text: string): Promise<void>;
-    decrementHydration(date: string): Promise<void>;
     getDailySummary(date: string): Promise<DaySummary>;
-    getHydrationByDate(date: string): Promise<bigint>;
+    getHydrationByDate(date: string): Promise<number>;
+    getHydrationTarget(date: string): Promise<number>;
     getMeditationByDate(date: string): Promise<Array<MeditationSession>>;
     getMoodByDate(date: string): Promise<bigint | null>;
     getReadingByDate(date: string): Promise<Array<ReadingEntry>>;
     getTasksByDate(date: string): Promise<Array<Task>>;
     getWorkoutsByDate(date: string): Promise<Array<WorkoutEntry>>;
-    incrementHydration(date: string): Promise<void>;
+    removeLitres(date: string, amount: number): Promise<void>;
     removeMeditationSession(date: string, sessionId: string): Promise<void>;
     removeReadingEntry(date: string, category: string): Promise<void>;
     removeTask(date: string, taskId: string): Promise<void>;
     removeWorkoutEntry(date: string, category: string): Promise<void>;
-    setHydration(date: string, glasses: bigint): Promise<void>;
+    setHydration(date: string, amount: number): Promise<void>;
+    setHydrationTarget(date: string, target: number): Promise<void>;
     setMood(date: string, score: bigint): Promise<void>;
     toggleTask(date: string, taskId: string): Promise<void>;
     upsertReadingEntry(date: string, category: string, pages: bigint, minutes: bigint): Promise<void>;
@@ -142,6 +144,20 @@ export interface backendInterface {
 import type { DaySummary as _DaySummary, MeditationSession as _MeditationSession, ReadingEntry as _ReadingEntry, Task as _Task, WorkoutEntry as _WorkoutEntry } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async addLitres(arg0: string, arg1: number): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addLitres(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addLitres(arg0, arg1);
+            return result;
+        }
+    }
     async addMeditationSession(arg0: string, arg1: bigint): Promise<void> {
         if (this.processError) {
             try {
@@ -170,20 +186,6 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async decrementHydration(arg0: string): Promise<void> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.decrementHydration(arg0);
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.decrementHydration(arg0);
-            return result;
-        }
-    }
     async getDailySummary(arg0: string): Promise<DaySummary> {
         if (this.processError) {
             try {
@@ -198,7 +200,7 @@ export class Backend implements backendInterface {
             return from_candid_DaySummary_n1(this._uploadFile, this._downloadFile, result);
         }
     }
-    async getHydrationByDate(arg0: string): Promise<bigint> {
+    async getHydrationByDate(arg0: string): Promise<number> {
         if (this.processError) {
             try {
                 const result = await this.actor.getHydrationByDate(arg0);
@@ -209,6 +211,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getHydrationByDate(arg0);
+            return result;
+        }
+    }
+    async getHydrationTarget(arg0: string): Promise<number> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getHydrationTarget(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getHydrationTarget(arg0);
             return result;
         }
     }
@@ -282,17 +298,17 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async incrementHydration(arg0: string): Promise<void> {
+    async removeLitres(arg0: string, arg1: number): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.incrementHydration(arg0);
+                const result = await this.actor.removeLitres(arg0, arg1);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.incrementHydration(arg0);
+            const result = await this.actor.removeLitres(arg0, arg1);
             return result;
         }
     }
@@ -352,7 +368,7 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async setHydration(arg0: string, arg1: bigint): Promise<void> {
+    async setHydration(arg0: string, arg1: number): Promise<void> {
         if (this.processError) {
             try {
                 const result = await this.actor.setHydration(arg0, arg1);
@@ -363,6 +379,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.setHydration(arg0, arg1);
+            return result;
+        }
+    }
+    async setHydrationTarget(arg0: string, arg1: number): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setHydrationTarget(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setHydrationTarget(arg0, arg1);
             return result;
         }
     }
@@ -436,7 +466,7 @@ function from_candid_record_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint
     date: string;
     mood: [] | [bigint];
     workout: Array<_WorkoutEntry>;
-    hydration: bigint;
+    hydration: number;
 }): {
     reading: Array<ReadingEntry>;
     meditation: Array<MeditationSession>;
@@ -444,7 +474,7 @@ function from_candid_record_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint
     date: string;
     mood?: bigint;
     workout: Array<WorkoutEntry>;
-    hydration: bigint;
+    hydration: number;
 } {
     return {
         reading: value.reading,

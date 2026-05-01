@@ -1,9 +1,10 @@
-import { j as jsxRuntimeExports, r as reactExports } from "./index-De6_TF5Z.js";
-import { c as createSlot, B as Button } from "./button-DScs97lM.js";
+import { j as jsxRuntimeExports, r as reactExports } from "./index-D6AznCEg.js";
+import { c as createSlot, B as Button } from "./button-BZxg97WT.js";
 import { c as cn } from "./utils-2v2HxlWs.js";
-import { S as Skeleton } from "./skeleton-DCxdagqc.js";
-import { t as todayKey, a as useWorkoutLog, b as useSaveWorkout, f as formatDisplayDate } from "./useHabitBackend-hZtoiFj0.js";
-import { c as createLucideIcon } from "./createLucideIcon-CAN4Aort.js";
+import { S as Skeleton } from "./skeleton-DJ5iJ0SD.js";
+import { t as todayKey, a as useWorkoutLog, b as useSaveWorkout, f as formatDisplayDate } from "./useHabitBackend-CFoa_XeP.js";
+import { c as createLucideIcon } from "./createLucideIcon-DH0K0O4P.js";
+import { T as Target } from "./target-uGuI49e1.js";
 function Input({ className, type, ...props }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "input",
@@ -93,7 +94,7 @@ function Label({
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$7 = [
   [
     "path",
     {
@@ -102,14 +103,14 @@ const __iconNode$8 = [
     }
   ]
 ];
-const Activity = createLucideIcon("activity", __iconNode$8);
+const Activity = createLucideIcon("activity", __iconNode$7);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$7 = [
+const __iconNode$6 = [
   [
     "path",
     {
@@ -128,23 +129,7 @@ const __iconNode$7 = [
   ],
   ["path", { d: "m9.6 14.4 4.8-4.8", key: "6umqxw" }]
 ];
-const Dumbbell = createLucideIcon("dumbbell", __iconNode$7);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$6 = [
-  [
-    "path",
-    {
-      d: "M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z",
-      key: "96xj49"
-    }
-  ]
-];
-const Flame = createLucideIcon("flame", __iconNode$6);
+const Dumbbell = createLucideIcon("dumbbell", __iconNode$6);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -155,12 +140,12 @@ const __iconNode$5 = [
   [
     "path",
     {
-      d: "M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z",
-      key: "c3ymky"
+      d: "M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z",
+      key: "96xj49"
     }
   ]
 ];
-const Heart = createLucideIcon("heart", __iconNode$5);
+const Flame = createLucideIcon("flame", __iconNode$5);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -168,6 +153,22 @@ const Heart = createLucideIcon("heart", __iconNode$5);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$4 = [
+  [
+    "path",
+    {
+      d: "M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z",
+      key: "c3ymky"
+    }
+  ]
+];
+const Heart = createLucideIcon("heart", __iconNode$4);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$3 = [
   [
     "path",
     {
@@ -190,14 +191,14 @@ const __iconNode$4 = [
     }
   ]
 ];
-const Layers = createLucideIcon("layers", __iconNode$4);
+const Layers = createLucideIcon("layers", __iconNode$3);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$3 = [
+const __iconNode$2 = [
   [
     "path",
     {
@@ -206,19 +207,7 @@ const __iconNode$3 = [
     }
   ]
 ];
-const Shield = createLucideIcon("shield", __iconNode$3);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$2 = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["circle", { cx: "12", cy: "12", r: "6", key: "1vlfrh" }],
-  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
-];
-const Target = createLucideIcon("target", __iconNode$2);
+const Shield = createLucideIcon("shield", __iconNode$2);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -293,29 +282,34 @@ function LogModal({
 }) {
   const [sets, setSets] = reactExports.useState(existing ? Number(existing.sets) : 3);
   const [reps, setReps] = reactExports.useState(existing ? Number(existing.reps) : 10);
-  const overlayRef = reactExports.useRef(null);
-  const handleBackdropClick = (e) => {
-    if (e.target === overlayRef.current) onClose();
-  };
+  const dialogRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
+    const el = dialogRef.current;
+    if (!el) return;
+    if (!el.open) el.showModal();
+    const handleClose = () => onClose();
+    el.addEventListener("close", handleClose);
+    return () => el.removeEventListener("close", handleClose);
   }, [onClose]);
+  const handleBackdropClick = (e) => {
+    var _a, _b;
+    const rect = (_a = dialogRef.current) == null ? void 0 : _a.getBoundingClientRect();
+    if (!rect) return;
+    const { clientX: x, clientY: y } = e;
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+      (_b = dialogRef.current) == null ? void 0 : _b.close();
+    }
+  };
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "dialog",
     {
-      ref: overlayRef,
+      ref: dialogRef,
       "data-ocid": "workout.dialog",
-      open: true,
-      className: "fixed inset-0 z-50 flex items-end justify-center sm:items-center m-0 p-0 w-full h-full max-w-none max-h-none border-0 bg-transparent",
-      style: { background: "rgba(0,0,0,0.72)" },
       "aria-labelledby": "workout-modal-title",
       onClick: handleBackdropClick,
       onKeyDown: (e) => {
-        if (e.key === "Escape") onClose();
+        var _a;
+        if (e.key === "Escape") (_a = dialogRef.current) == null ? void 0 : _a.close();
       },
       children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "div",
@@ -323,7 +317,6 @@ function LogModal({
           className: "bg-card rounded-t-3xl sm:rounded-3xl w-full max-w-sm mx-0 sm:mx-4 p-6 shadow-2xl",
           onClick: (e) => e.stopPropagation(),
           onKeyDown: (e) => e.stopPropagation(),
-          role: "presentation",
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-6", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
@@ -518,6 +511,33 @@ function WorkoutPage() {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
+        /* ── dialog overlay reset ───────────────────────── */
+        dialog[data-ocid="workout.dialog"] {
+          all: unset;
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+          background: rgba(0,0,0,0.72);
+          width: 100vw;
+          max-width: 100vw;
+          height: 100dvh;
+          max-height: 100dvh;
+          padding: 0;
+          border: none;
+          margin: 0;
+          overflow: visible;
+        }
+        @media (min-width: 640px) {
+          dialog[data-ocid="workout.dialog"] {
+            align-items: center;
+          }
+        }
+        dialog[data-ocid="workout.dialog"]::backdrop {
+          display: none;
+        }
         .workout-category-card {
           position: relative;
           border-radius: 1rem;

@@ -10,17 +10,20 @@ import MoodApi "mixins/mood-api";
 import ReadingApi "mixins/reading-api";
 import MeditationApi "mixins/meditation-api";
 import SummaryApi "mixins/summary-api";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   let workoutStore : Map.Map<Text, [WorkoutTypes.WorkoutEntry]> = Map.empty<Text, [WorkoutTypes.WorkoutEntry]>();
-  let hydrationStore : Map.Map<Text, Nat> = Map.empty<Text, Nat>();
+  let hydrationStore : Map.Map<Text, Float> = Map.empty<Text, Float>();
+  let hydrationTargetStore : Map.Map<Text, Float> = Map.empty<Text, Float>();
   let moodStore : Map.Map<Text, Nat> = Map.empty<Text, Nat>();
   let taskStore : Map.Map<Text, [MoodTypes.Task]> = Map.empty<Text, [MoodTypes.Task]>();
   let readingStore : Map.Map<Text, [ReadingTypes.ReadingEntry]> = Map.empty<Text, [ReadingTypes.ReadingEntry]>();
   let meditationStore : Map.Map<Text, [MeditationTypes.MeditationSession]> = Map.empty<Text, [MeditationTypes.MeditationSession]>();
 
   include WorkoutApi(workoutStore);
-  include HydrationApi(hydrationStore);
+  include HydrationApi(hydrationStore, hydrationTargetStore);
   include MoodApi(moodStore, taskStore);
   include ReadingApi(readingStore);
   include MeditationApi(meditationStore);
